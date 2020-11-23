@@ -2,12 +2,12 @@
 
 import type { FIXME } from '../types';
 import Base from './Base';
+import Role from './Role';
+import TextBasedChannel from './interfaces/TextBasedChannel';
+import { Error } from '../errors';
+import GuildMemberRoleManager from '../managers/GuildMemberRoleManager';
+import Permissions from '../util/Permissions';
 
-const Role = require('./Role');
-const TextBasedChannel = require('./interfaces/TextBasedChannel');
-const { Error } = require('../errors');
-const GuildMemberRoleManager = require('../managers/GuildMemberRoleManager');
-const Permissions = require('../util/Permissions');
 let Structures;
 
 /**
@@ -116,7 +116,9 @@ class GuildMember extends Base {
    * @type {GuildMemberRoleManager}
    * @readonly
    */
-  get roles() {
+  get roles(): typeof GuildMemberRoleManager {
+    // @TODO: Remove the need for the following ts-expect-error
+    // @ts-expect-error
     return new GuildMemberRoleManager(this);
   }
 
@@ -184,6 +186,8 @@ class GuildMember extends Base {
    * @readonly
    */
   get displayColor() {
+    // @TODO: Remove the need for the following ts-expect-error
+    // @ts-expect-error
     const role = this.roles.color;
     return (role && role.color) || 0;
   }
@@ -194,6 +198,8 @@ class GuildMember extends Base {
    * @readonly
    */
   get displayHexColor() {
+    // @TODO: Remove the need for the following ts-expect-error
+    // @ts-expect-error
     const role = this.roles.color;
     return (role && role.hexColor) || '#000000';
   }
@@ -223,6 +229,8 @@ class GuildMember extends Base {
    */
   get permissions() {
     if (this.user.id === this.guild.ownerID) return new Permissions(Permissions.ALL).freeze();
+    // @TODO: Remove the need for the following ts-expect-error
+    // @ts-expect-error
     return new Permissions(this.roles.cache.map(role => role.permissions)).freeze();
   }
 
@@ -237,6 +245,8 @@ class GuildMember extends Base {
     if (this.user.id === this.client.user.id) return false;
     if (this.client.user.id === this.guild.ownerID) return true;
     if (!this.guild.me) throw new Error('GUILD_UNCACHED_ME');
+    // @TODO: Remove the need for the following ts-expect-error
+    // @ts-expect-error
     return this.guild.me.roles.highest.comparePositionTo(this.roles.highest) > 0;
   }
 
@@ -280,6 +290,8 @@ class GuildMember extends Base {
    */
   hasPermission(permission, { checkAdmin = true, checkOwner = true } = {}) {
     if (checkOwner && this.user.id === this.guild.ownerID) return true;
+    // @TODO: Remove the need for the following ts-expect-error
+    // @ts-expect-error
     const permissions = new Permissions(this.roles.cache.map(role => role.permissions));
     return permissions.has(permission, checkAdmin);
   }

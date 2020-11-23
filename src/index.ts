@@ -1,8 +1,15 @@
 'use strict';
 
+// "Root" classes (starting points)
 import Client from './client/Client';
+import BaseClient from './client/BaseClient';
+import Shard from './sharding/Shard';
+import ShardClientUtil from './sharding/ShardClientUtil';
+import ShardingManager from './sharding/ShardingManager';
+import WebhookClient from './client/WebhookClient';
 
 // Managers
+import BaseManager from './managers/BaseManager';
 import BaseGuildEmojiManager from './managers/BaseGuildEmojiManager';
 import ChannelManager from './managers/ChannelManager';
 import GuildChannelManager from './managers/GuildChannelManager';
@@ -20,6 +27,24 @@ import UserManager from './managers/UserManager';
 import VoiceStateManager from './managers/VoiceStateManager';
 
 // Shortcuts to Util methods
+import ActivityFlags from './util/ActivityFlags';
+import BitField from './util/BitField';
+import Collection from './util/Collection';
+import * as Constants from './util/Constants';
+import DataResolver from './util/DataResolver';
+import Intents from './util/Intents';
+import MessageFlags from './util/MessageFlags';
+import Permissions from './util/Permissions';
+import Snowflake from './util/Snowflake';
+import Speaking from './util/Speaking';
+import Structures from './util/Structures';
+import SystemChannelFlags from './util/SystemChannelFlags';
+import UserFlags from './util/UserFlags';
+import Util from './util/Util';
+
+// Errors
+import DiscordAPIError from './rest/DiscordAPIError';
+import HTTPError from './rest/HTTPError';
 
 // Structures
 import Application from './structures/interfaces/Application';
@@ -30,11 +55,13 @@ import BaseGuildEmoji from './structures/BaseGuildEmoji';
 import CategoryChannel from './structures/CategoryChannel';
 import ClientPresence from './structures/ClientPresence';
 import Channel from './structures/Channel';
+import ClientUser from './structures/ClientUser';
 import ClientApplication from './structures/ClientApplication';
 import DMChannel from './structures/DMChannel';
 import Emoji from './structures/Emoji';
 import Guild from './structures/Guild';
 import GuildChannel from './structures/GuildChannel';
+import GuildAuditLogs from './structures/GuildAuditLogs';
 import GuildEmoji from './structures/GuildEmoji';
 import GuildMember from './structures/GuildMember';
 import GuildPreview from './structures/GuildPreview';
@@ -66,9 +93,16 @@ import Webhook from './structures/Webhook';
 import * as WebSocket from './WebSocket';
 
 export {
+  // "Root" classes (starting points)
+  BaseClient,
   Client,
+  Shard,
+  ShardClientUtil,
+  ShardingManager,
+  WebhookClient,
 
   // Managers
+  BaseManager,
   BaseGuildEmojiManager,
   ChannelManager,
   GuildChannelManager,
@@ -97,8 +131,9 @@ export {
   Collector,
   DMChannel,
   Emoji,
+  ClientUser,
   Guild,
-  // GuildAuditLogs: require('./structures/GuildAuditLogs'),
+  GuildAuditLogs,
   GuildChannel,
   GuildEmoji,
   GuildMember,
@@ -132,37 +167,35 @@ export {
   WebSocket
 };
 
-const UtilLib = require('./util/Util');
-
 const Discord = {
   // "Root" classes (starting points)
-  BaseClient: require('./client/BaseClient'),
+  BaseClient,
   Client,
-  Shard: require('./sharding/Shard'),
-  ShardClientUtil: require('./sharding/ShardClientUtil'),
-  ShardingManager: require('./sharding/ShardingManager'),
-  WebhookClient: require('./client/WebhookClient'),
+  Shard,
+  ShardClientUtil,
+  ShardingManager,
+  WebhookClient,
 
   // Utilities
-  ActivityFlags: require('./util/ActivityFlags'),
-  BitField: require('./util/BitField'),
-  Collection: require('./util/Collection'),
-  Constants: require('./util/Constants'),
-  DataResolver: require('./util/DataResolver'),
-  BaseManager: require('./managers/BaseManager'),
-  DiscordAPIError: require('./rest/DiscordAPIError'),
-  HTTPError: require('./rest/HTTPError'),
-  MessageFlags: require('./util/MessageFlags'),
-  Intents: require('./util/Intents'),
-  Permissions: require('./util/Permissions'),
-  Speaking: require('./util/Speaking'),
-  Snowflake: require('./util/Snowflake'),
-  SnowflakeUtil: require('./util/Snowflake'),
-  Structures: require('./util/Structures'),
-  SystemChannelFlags: require('./util/SystemChannelFlags'),
-  UserFlags: require('./util/UserFlags'),
-  Util: UtilLib,
-  version: require('../package.json').version,
+  ActivityFlags,
+  BitField,
+  Collection,
+  Constants,
+  DataResolver,
+  BaseManager,
+  DiscordAPIError,
+  HTTPError,
+  MessageFlags,
+  Intents,
+  Permissions,
+  Speaking,
+  Snowflake,
+  SnowflakeUtil: Snowflake,
+  Structures,
+  SystemChannelFlags,
+  UserFlags,
+  Util,
+  version: Constants.Package.version,
 
   // Managers
   BaseGuildEmojiManager,
@@ -181,12 +214,12 @@ const Discord = {
   UserManager,
 
   // Shortcuts to Util methods
-  discordSort: UtilLib.discordSort,
-  escapeMarkdown: UtilLib.escapeMarkdown,
-  fetchRecommendedShards: UtilLib.fetchRecommendedShards,
-  resolveColor: UtilLib.resolveColor,
-  resolveString: UtilLib.resolveString,
-  splitMessage: UtilLib.splitMessage,
+  discordSort: Util.discordSort,
+  escapeMarkdown: Util.escapeMarkdown,
+  fetchRecommendedShards: Util.fetchRecommendedShards,
+  resolveColor: Util.resolveColor,
+  resolveString: Util.resolveString,
+  splitMessage: Util.splitMessage,
 
   // Structures
   Activity,
@@ -203,10 +236,10 @@ const Discord = {
   Emoji,
   get ClientUser() {
     // This is a getter so that it properly extends any custom User class
-    return require('./structures/ClientUser');
+    return ClientUser;
   },
   Guild,
-  GuildAuditLogs: require('./structures/GuildAuditLogs'),
+  GuildAuditLogs,
   GuildChannel,
   GuildEmoji,
   GuildMember,
@@ -241,37 +274,3 @@ const Discord = {
 };
 
 export default Discord;
-export const { BaseClient } = Discord;
-
-export const { Shard } = Discord;
-export const { ShardClientUtil } = Discord;
-export const { ShardingManager } = Discord;
-export const { WebhookClient } = Discord;
-export const { ActivityFlags } = Discord;
-export const { BitField } = Discord;
-export const { Collection } = Discord;
-export const { Constants } = Discord;
-export const { DataResolver } = Discord;
-export const { BaseManager } = Discord;
-export const { DiscordAPIError } = Discord;
-export const { HTTPError } = Discord;
-export const { MessageFlags } = Discord;
-export const { Intents } = Discord;
-export const { Permissions } = Discord;
-export const { Speaking } = Discord;
-export const { Snowflake } = Discord;
-export const { SnowflakeUtil } = Discord;
-export const { Structures } = Discord;
-export const { SystemChannelFlags } = Discord;
-export const { UserFlags } = Discord;
-export const { Util } = Discord;
-export const { version } = Discord;
-export const { discordSort } = Discord;
-export const { escapeMarkdown } = Discord;
-export const { fetchRecommendedShards } = Discord;
-export const { resolveColor } = Discord;
-export const { resolveString } = Discord;
-export const { splitMessage } = Discord;
-export const { ClientUser } = Discord;
-export const { GuildAuditLogs } = Discord;
-

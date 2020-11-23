@@ -179,7 +179,7 @@ class User extends Base {
    * @param {ImageURLOptions} [options={}] Options for the Image URL
    * @returns {string}
    */
-  displayAvatarURL(options) {
+  displayAvatarURL(options?: FIXME) {
     return this.avatarURL(options) || this.defaultAvatarURL;
   }
 

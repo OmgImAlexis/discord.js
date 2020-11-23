@@ -1,5 +1,7 @@
 'use strict';
 
+import type { FIXME } from '../types';
+
 const DataResolver = require('../util/DataResolver');
 const Structures = require('../util/Structures');
 
@@ -158,7 +160,7 @@ class ClientUser extends Structures.get('User') {
    *   .then(presence => console.log(`Activity set to ${presence.activities[0].name}`))
    *   .catch(console.error);
    */
-  setActivity(name, options = {}) {
+  setActivity(name, options: FIXME = {}) {
     if (!name) return this.setPresence({ activity: null, shardID: options.shardID });
 
     const activity = Object.assign({}, options, typeof name === 'object' ? name : { name });

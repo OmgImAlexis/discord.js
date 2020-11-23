@@ -12,6 +12,7 @@
     "module": "commonjs",
     "target": "es2019",
     "lib": [
+      "dom",
       "esnext",
       "esnext.array",
       "esnext.asynciterable",

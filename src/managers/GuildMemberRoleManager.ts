@@ -1,16 +1,17 @@
 'use strict';
 
 import type { FIXME } from '../types';
-
-const { TypeError } = require('../errors');
-const Collection = require('../util/Collection');
+import { TypeError } from '../errors';
+import Collection from '../util/Collection';
+import type Guild from '../structures/Guild';
+import type GuildMember from '../structures/GuildMember';
 
 /**
  * Manages API methods for roles of a GuildMember and stores their cache.
  */
 class GuildMemberRoleManager {
-  member: FIXME;
-  guild: FIXME;
+  member: GuildMember;
+  guild: Guild;
   client: FIXME;
 
   constructor(member) {
@@ -86,6 +87,8 @@ class GuildMemberRoleManager {
    */
   async add(roleOrRoles, reason) {
     if (roleOrRoles instanceof Collection || Array.isArray(roleOrRoles)) {
+      // @TODO: Remove the need for the following ts-expect-error
+      // @ts-expect-error
       roleOrRoles = roleOrRoles.map(r => this.guild.roles.resolve(r));
       if (roleOrRoles.includes(null)) {
         throw new TypeError('INVALID_TYPE', 'roles', 'Array or Collection of Roles or Snowflakes', true);
@@ -115,6 +118,8 @@ class GuildMemberRoleManager {
    */
   async remove(roleOrRoles, reason) {
     if (roleOrRoles instanceof Collection || Array.isArray(roleOrRoles)) {
+      // @TODO: Remove the need for the following ts-expect-error
+      // @ts-expect-error
       roleOrRoles = roleOrRoles.map(r => this.guild.roles.resolve(r));
       if (roleOrRoles.includes(null)) {
         throw new TypeError('INVALID_TYPE', 'roles', 'Array or Collection of Roles or Snowflakes', true);
