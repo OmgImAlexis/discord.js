@@ -4,34 +4,45 @@ import { URLSearchParams } from 'url';
 import ChannelManager from '../managers/ChannelManager';
 import type { FIXME } from '../types';
 
-const BaseClient = require('./BaseClient');
-const ActionsManager = require('./actions/ActionsManager');
-const ClientVoiceManager = require('./voice/ClientVoiceManager');
-const WebSocketManager = require('./websocket/WebSocketManager');
-const { Error: DiscordError, TypeError: DiscordTypeError, RangeError: DiscordRangeError } = require('../errors');
-const BaseGuildEmojiManager = require('../managers/BaseGuildEmojiManager');
-
-const GuildManager = require('../managers/GuildManager');
-const UserManager = require('../managers/UserManager');
-const ShardClientUtil = require('../sharding/ShardClientUtil');
-const ClientApplication = require('../structures/ClientApplication');
-const GuildPreview = require('../structures/GuildPreview');
-const GuildTemplate = require('../structures/GuildTemplate');
-const Invite = require('../structures/Invite');
-const VoiceRegion = require('../structures/VoiceRegion');
-const Webhook = require('../structures/Webhook');
-const Collection = require('../util/Collection');
-const { Events, browser, DefaultOptions } = require('../util/Constants');
-const DataResolver = require('../util/DataResolver');
-const Intents = require('../util/Intents');
-const Permissions = require('../util/Permissions');
-const Structures = require('../util/Structures');
+import BaseClient from './BaseClient';
+import ActionsManager from './actions/ActionsManager';
+import ClientVoiceManager from './voice/ClientVoiceManager';
+import WebSocketManager from './websocket/WebSocketManager';
+import { Error as DiscordError, TypeError as DiscordTypeError, RangeError as DiscordRangeError } from '../errors';
+import BaseGuildEmojiManager from '../managers/BaseGuildEmojiManager';
+import GuildManager from '../managers/GuildManager';
+import UserManager from '../managers/UserManager';
+import ShardClientUtil from '../sharding/ShardClientUtil';
+import ClientApplication from '../structures/ClientApplication';
+import GuildPreview from '../structures/GuildPreview';
+import GuildTemplate from '../structures/GuildTemplate';
+import Invite from '../structures/Invite';
+import VoiceRegion from '../structures/VoiceRegion';
+import Webhook from '../structures/Webhook';
+import Collection from '../util/Collection';
+import { Events, browser, DefaultOptions } from '../util/Constants';
+import DataResolver from '../util/DataResolver';
+import Intents from '../util/Intents';
+import Permissions from '../util/Permissions';
+import Structures from '../util/Structures';
 
 /**
  * The main hub for interacting with the Discord API, and the starting point for any bot.
  * @extends {BaseClient}
  */
 class Client extends BaseClient {
+  ws: WebSocketManager;
+  actions: ActionsManager;
+  voice: ClientVoiceManager | null;
+  shard: FIXME;
+  users: UserManager;
+  guilds: GuildManager;
+  channels: ChannelManager;
+  presence: FIXME;
+  token: FIXME;
+  user: FIXME;
+  readyAt: FIXME;
+
   /**
    * @param {ClientOptions} [options] Options for the client
    */
@@ -47,6 +58,7 @@ class Client extends BaseClient {
       // Do nothing
     }
 
+    // @ts-expect-error
     if (this.options.shards === DefaultOptions.shards) {
       if (data.SHARDS) {
         this.options.shards = JSON.parse(data.SHARDS);

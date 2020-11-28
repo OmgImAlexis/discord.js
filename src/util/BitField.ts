@@ -1,8 +1,7 @@
 'use strict';
 
 import type { FIXME } from '../types';
-
-const { RangeError: DiscordRangeError } = require('../errors');
+import { RangeError as DiscordRangeError } from '../errors';
 
 /**
  * Data structure that makes it easy to interact with a bitfield.
@@ -14,7 +13,7 @@ class BitField {
   /**
    * @param {BitFieldResolvable} [bits=0] Bit(s) to read from
    */
-  constructor(bits) {
+  constructor(bits?) {
     /**
      * Bitfield of the packed bits
      * @type {number}

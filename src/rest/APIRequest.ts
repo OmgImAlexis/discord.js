@@ -2,12 +2,11 @@
 
 import { URLSearchParams } from 'url';
 import type { FIXME } from '../types';
-
-const https = require('https');
-const FormData = require('@discordjs/form-data');
-const AbortController = require('abort-controller');
-const fetch = require('node-fetch');
-const { browser, UserAgent } = require('../util/Constants');
+import * as https from 'https';
+import * as FormData from '@discordjs/form-data';
+import AbortController from 'abort-controller';
+import fetch from 'node-fetch';
+import { browser, UserAgent } from '../util/Constants';
 
 if (https.Agent) var agent = new https.Agent({ keepAlive: true });
 
@@ -27,8 +26,13 @@ class APIRequest {
     let queryString = '';
     if (options.query) {
       const query = Object.entries(options.query)
+        // @TODO: Remove the need for the following ts-expect-error
+        // @ts-expect-error
         .filter(([, value]) => ![null, 'null', 'undefined'].includes(value) && typeof value !== 'undefined')
         .flatMap(([key, value]) => (Array.isArray(value) ? value.map(v => [key, v]) : [[key, value]]));
+
+      // @TODO: Remove the need for the following ts-expect-error
+      // @ts-expect-error
       queryString = new URLSearchParams(query).toString();
     }
     this.path = `${path}${queryString && `?${queryString}`}`;

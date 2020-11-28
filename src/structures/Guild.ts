@@ -1,36 +1,35 @@
 'use strict';
 
+import { deprecate } from 'util';
 import type { FIXME } from '../types';
 import Base from './Base';
-
-const { deprecate } = require('util');
-const GuildAuditLogs = require('./GuildAuditLogs');
-const GuildPreview = require('./GuildPreview');
-const GuildTemplate = require('./GuildTemplate');
-const Integration = require('./Integration');
-const Invite = require('./Invite');
-const VoiceRegion = require('./VoiceRegion');
-const Webhook = require('./Webhook');
-const { Error, TypeError } = require('../errors');
-const GuildChannelManager = require('../managers/GuildChannelManager');
-const GuildEmojiManager = require('../managers/GuildEmojiManager');
-const GuildMemberManager = require('../managers/GuildMemberManager');
-const PresenceManager = require('../managers/PresenceManager');
-const RoleManager = require('../managers/RoleManager');
-const VoiceStateManager = require('../managers/VoiceStateManager');
-const Collection = require('../util/Collection');
-const {
+import GuildAuditLogs from './GuildAuditLogs';
+import GuildPreview from './GuildPreview';
+import GuildTemplate from './GuildTemplate';
+import Integration from './Integration';
+import Invite from './Invite';
+import VoiceRegion from './VoiceRegion';
+import Webhook from './Webhook';
+import { Error, TypeError } from '../errors';
+import GuildChannelManager from '../managers/GuildChannelManager';
+import GuildEmojiManager from '../managers/GuildEmojiManager';
+import GuildMemberManager from '../managers/GuildMemberManager';
+import PresenceManager from '../managers/PresenceManager';
+import RoleManager from '../managers/RoleManager';
+import VoiceStateManager from '../managers/VoiceStateManager';
+import Collection from '../util/Collection';
+import {
   browser,
   ChannelTypes,
   DefaultMessageNotifications,
   PartialTypes,
   VerificationLevels,
   ExplicitContentFilterLevels,
-} = require('../util/Constants');
-const DataResolver = require('../util/DataResolver');
-const Snowflake = require('../util/Snowflake');
-const SystemChannelFlags = require('../util/SystemChannelFlags');
-const Util = require('../util/Util');
+} from '../util/Constants';
+import DataResolver from '../util/DataResolver';
+import Snowflake from '../util/Snowflake';
+import SystemChannelFlags from '../util/SystemChannelFlags';
+import Util from '../util/Util';
 
 /**
  * Represents a guild (or a server) on Discord.
@@ -39,52 +38,114 @@ const Util = require('../util/Util');
  * @extends {Base}
  */
 class Guild extends Base {
-  members: FIXME;
-  channels: FIXME;
-  roles: FIXME;
-  presences: FIXME;
-  client: FIXME;
-  voiceStates: FIXME;
-  deleted: FIXME;
-  available: FIXME;
-  shardID: FIXME;
-  name: FIXME;
-  icon: FIXME;
-  splash: FIXME;
-  discoverySplash: FIXME;
-  region: FIXME;
-  memberCount: FIXME;
-  large: FIXME;
-  features: FIXME;
-  applicationID: FIXME;
-  afkTimeout: FIXME;
+  // public readonly afkChannel: VoiceChannel | null;
+  // public afkChannelID: Snowflake | null;
+  // public afkTimeout: number;
+  // public applicationID: Snowflake | null;
+  // public approximateMemberCount: number | null;
+  // public approximatePresenceCount: number | null;
+  // public available: boolean;
+  // public banner: string | null;
+  // public channels: GuildChannelManager;
+  // public readonly createdAt: Date;
+  // public readonly createdTimestamp: number;
+  // public defaultMessageNotifications: DefaultMessageNotifications | number;
+  // public deleted: boolean;
+  // public description: string | null;
+  // public discoverySplash: string | null;
+  // public embedChannel: GuildChannel | null;
+  // public embedChannelID: Snowflake | null;
+  // public embedEnabled: boolean;
+  // public emojis: GuildEmojiManager;
+  // public explicitContentFilter: ExplicitContentFilterLevel;
+  // public features: GuildFeatures[];
+  // public icon: string | null;
+  // public id: Snowflake;
+  // public readonly joinedAt: Date;
+  // public joinedTimestamp: number;
+  // public large: boolean;
+  // public maximumMembers: number | null;
+  // public maximumPresences: number | null;
+  // public readonly me: GuildMember | null;
+  // public memberCount: number;
+  // public members: GuildMemberManager;
+  // public mfaLevel: number;
+  // public name: string;
+  // public readonly nameAcronym: string;
+  // public readonly owner: GuildMember | null;
+  // public ownerID: Snowflake;
+  // public readonly partnered: boolean;
+  // public preferredLocale: string;
+  // public premiumSubscriptionCount: number | null;
+  // public premiumTier: PremiumTier;
+  // public presences: PresenceManager;
+  // public readonly publicUpdatesChannel: TextChannel | null;
+  // public publicUpdatesChannelID: Snowflake | null;
+  // public region: string;
+  public roles: RoleManager;
+  // public readonly rulesChannel: TextChannel | null;
+  // public rulesChannelID: Snowflake | null;
+  // public readonly shard: WebSocketShard;
+  // public shardID: number;
+  // public splash: string | null;
+  // public readonly systemChannel: TextChannel | null;
+  // public systemChannelFlags: Readonly<SystemChannelFlags>;
+  // public systemChannelID: Snowflake | null;
+  // public vanityURLCode: string | null;
+  // public vanityURLUses: number | null;
+  // public verificationLevel: VerificationLevel;
+  // public readonly verified: boolean;
+  // public readonly voice: VoiceState | null;
+  // public readonly voiceStates: VoiceStateManager;
+  // public readonly widgetChannel: TextChannel | null;
+  // public widgetChannelID: Snowflake | null;
+  // public widgetEnabled: boolean | null;
+
   afkChannelID: FIXME;
-  systemChannelID: FIXME;
-  embedEnabled: FIXME;
-  premiumTier: FIXME;
-  premiumSubscriptionCount: FIXME;
-  widgetEnabled: FIXME;
-  widgetChannelID: FIXME;
-  embedChannelID: FIXME;
-  verificationLevel: FIXME;
-  explicitContentFilter: FIXME;
-  mfaLevel: FIXME;
-  joinedTimestamp: FIXME;
-  defaultMessageNotifications: FIXME;
-  systemChannelFlags: FIXME;
-  maximumMembers: FIXME;
-  maximumPresences: FIXME;
+  afkTimeout: FIXME;
+  applicationID: FIXME;
   approximateMemberCount: FIXME;
   approximatePresenceCount: FIXME;
+  available: FIXME;
+  banner: FIXME;
+  channels: FIXME;
+  client: FIXME;
+  defaultMessageNotifications: FIXME;
+  deleted: FIXME;
+  description: FIXME;
+  discoverySplash: FIXME;
+  embedChannelID: FIXME;
+  embedEnabled: FIXME;
+  emojis: FIXME;
+  explicitContentFilter: FIXME;
+  features: FIXME;
+  icon: FIXME;
+  joinedTimestamp: FIXME;
+  large: FIXME;
+  maximumMembers: FIXME;
+  maximumPresences: FIXME;
+  memberCount: FIXME;
+  members: FIXME;
+  mfaLevel: FIXME;
+  name: FIXME;
+  ownerID: FIXME;
+  preferredLocale: FIXME;
+  premiumSubscriptionCount: FIXME;
+  premiumTier: FIXME;
+  presences: FIXME;
+  publicUpdatesChannelID: FIXME;
+  region: FIXME;
+  rulesChannelID: FIXME;
+  shardID: FIXME;
+  splash: FIXME;
+  systemChannelFlags: FIXME;
+  systemChannelID: FIXME;
   vanityURLCode: FIXME;
   vanityURLUses: FIXME;
-  description: FIXME;
-  banner: FIXME;
-  rulesChannelID: FIXME;
-  publicUpdatesChannelID: FIXME;
-  preferredLocale: FIXME;
-  ownerID: FIXME;
-  emojis: FIXME;
+  verificationLevel: FIXME;
+  voiceStates: FIXME;
+  widgetChannelID: FIXME;
+  widgetEnabled: FIXME;
 
   /**
  FIXME @param {Client} client The instantiating client

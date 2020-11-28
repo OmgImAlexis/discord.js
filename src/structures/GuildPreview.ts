@@ -1,16 +1,26 @@
 'use strict';
 
 import type { FIXME } from '../types';
-
-const Base = require('./Base');
-const GuildPreviewEmoji = require('./GuildPreviewEmoji');
-const Collection = require('../util/Collection');
+import Base from './Base';
+import GuildPreviewEmoji from './GuildPreviewEmoji';
+import Collection from '../util/Collection';
 
 /**
  * Represents the data about the guild any bot can preview, connected to the specified guild.
  * @extends {Base}
  */
 class GuildPreview extends Base {
+  name: FIXME;
+  icon: FIXME;
+  splash: FIXME;
+  discoverySplash: FIXME;
+  features: FIXME;
+  approximateMemberCount: FIXME;
+  approximatePresenceCount: FIXME;
+  description: FIXME;
+  emojis: FIXME;
+  client: FIXME;
+
   constructor(client, data) {
     super(client);
 

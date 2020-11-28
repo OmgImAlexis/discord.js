@@ -11,7 +11,7 @@ const DataResolver = require('../util/DataResolver');
  * @extends {BaseGuildEmojiManager}
  */
 class GuildEmojiManager extends BaseGuildEmojiManager {
-  constructor(guild, iterable) {
+  constructor(guild, iterable?) {
     super(guild.client, iterable);
 
     /**

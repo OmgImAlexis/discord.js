@@ -3,12 +3,11 @@
 import type { FIXME } from '../types';
 import MessageAttachment from './MessageAttachment';
 import MessageEmbed from './MessageEmbed';
-
-const { RangeError } = require('../errors');
-const { browser } = require('../util/Constants');
-const DataResolver = require('../util/DataResolver');
-const MessageFlags = require('../util/MessageFlags');
-const Util = require('../util/Util');
+import { RangeError } from '../errors';
+import { browser } from '../util/Constants';
+import DataResolver from '../util/DataResolver';
+import MessageFlags from '../util/MessageFlags';
+import Util from '../util/Util';
 
 /**
  * Represents a message to be sent to the API.

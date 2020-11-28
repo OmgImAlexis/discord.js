@@ -2,18 +2,21 @@
 
 import type { FIXME } from '../types';
 
-const BaseManager = require('./BaseManager');
-const Role = require('../structures/Role');
-const Collection = require('../util/Collection');
-const Permissions = require('../util/Permissions');
-const { resolveColor } = require('../util/Util');
+import BaseManager from './BaseManager';
+import Role from '../structures/Role';
+import Collection from '../util/Collection';
+import Permissions from '../util/Permissions';
+import Util from '../util/Util';
+import type Guild from '../structures/Guild';
 
 /**
  * Manages API methods for roles and stores their cache.
  * @extends {BaseManager}
  */
 class RoleManager extends BaseManager {
-  constructor(guild, iterable) {
+  guild: Guild;
+
+  constructor(guild, iterable?) {
     super(guild.client, iterable, Role);
     /**
      * The guild belonging to this manager
@@ -28,7 +31,7 @@ class RoleManager extends BaseManager {
    * @name RoleManager#cache
    */
 
-  add(data, cache) {
+  add(data, cache?) {
     return super.add(data, cache, { extras: [this.guild] });
   }
 
@@ -112,7 +115,7 @@ class RoleManager extends BaseManager {
    *   .catch(console.error);
    */
   create({ data = {}, reason }: FIXME) {
-    if (data.color) data.color = resolveColor(data.color);
+    if (data.color) data.color = Util.resolveColor(data.color);
     if (data.permissions) data.permissions = Permissions.resolve(data.permissions);
 
     return this.guild.client.api

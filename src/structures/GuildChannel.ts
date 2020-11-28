@@ -2,14 +2,14 @@
 
 import type { FIXME } from '../types';
 import Channel from './Channel';
-
-const Invite = require('./Invite');
-const PermissionOverwrites = require('./PermissionOverwrites');
-const Role = require('./Role');
-const { Error, TypeError } = require('../errors');
-const Collection = require('../util/Collection');
-const Permissions = require('../util/Permissions');
-const Util = require('../util/Util');
+import Invite from './Invite';
+import PermissionOverwrites from './PermissionOverwrites';
+import Role from './Role';
+import { Error, TypeError } from'../errors';
+import Collection from '../util/Collection';
+import Permissions from '../util/Permissions';
+import Util from '../util/Util';
+import type Guild from './Guild';
 
 /**
  * Represents a guild channel from any of the following:
@@ -22,7 +22,7 @@ const Util = require('../util/Util');
  * @abstract
  */
 class GuildChannel extends Channel {
-  guild: FIXME;
+  guild: Guild;
   name: FIXME;
   rawPosition: FIXME;
   parentID: FIXME;
@@ -37,7 +37,7 @@ class GuildChannel extends Channel {
    * @param {Guild} guild The guild the guild channel is part of
    * @param {Object} data The data for the guild channel
    */
-  constructor(guild, data) {
+  constructor(guild: Guild, data) {
     super(guild.client, data);
 
     /**

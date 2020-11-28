@@ -1,14 +1,14 @@
 'use strict';
 
+import { RangeError, TypeError } from '../../errors';
+import APIMessage from '../APIMessage';
+import Collection from '../../util/Collection';
+import MessageCollector from '../MessageCollector';
 import MessageManager from '../../managers/MessageManager';
+import Snowflake from '../../util/Snowflake';
 import type { FIXME } from '../../types';
-
-/* eslint-disable import/order */
-const MessageCollector = require('../MessageCollector');
-const APIMessage = require('../APIMessage');
-const Snowflake = require('../../util/Snowflake');
-const Collection = require('../../util/Collection');
-const { RangeError, TypeError } = require('../../errors');
+import User from '../User';
+import GuildMember from '../GuildMember';
 
 /**
  * Interface for classes that have text-channel-like features.
@@ -160,9 +160,6 @@ class TextBasedChannel {
    *   .catch(console.error);
    */
   async send(content, options) {
-    const User = require('../User');
-    const GuildMember = require('../GuildMember');
-
     if (this instanceof User || this instanceof GuildMember) {
       // @TODO: Remove the following ts-expect-error
       // @ts-expect-error

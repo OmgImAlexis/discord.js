@@ -10,7 +10,7 @@ const { parseEmoji } = require('../util/Util');
  * @extends {BaseManager}
  */
 class BaseGuildEmojiManager extends BaseManager {
-  constructor(client, iterable) {
+  constructor(client, iterable?) {
     super(client, iterable, GuildEmoji);
   }
 

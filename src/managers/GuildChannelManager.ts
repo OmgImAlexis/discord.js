@@ -10,7 +10,7 @@ const { ChannelTypes } = require('../util/Constants');
  * @extends {BaseManager}
  */
 class GuildChannelManager extends BaseManager {
-  constructor(guild, iterable) {
+  constructor(guild, iterable?) {
     super(guild.client, iterable, GuildChannel);
 
     /**

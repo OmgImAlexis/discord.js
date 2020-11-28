@@ -1,8 +1,8 @@
 'use strict';
 
-const Collector = require('./interfaces/Collector');
-const Collection = require('../util/Collection');
-const { Events } = require('../util/Constants');
+import Collector from './interfaces/Collector';
+import Collection from '../util/Collection';
+import { Events } from '../util/Constants';
 
 /**
  * @typedef {CollectorOptions} ReactionCollectorOptions
@@ -136,7 +136,6 @@ class ReactionCollector extends Collector {
     if (this.options.max && this.total >= this.options.max) return 'limit';
     if (this.options.maxEmojis && this.collected.size >= this.options.maxEmojis) return 'emojiLimit';
     if (this.options.maxUsers && this.users.size >= this.options.maxUsers) return 'userLimit';
-    return null;
   }
 
   /**

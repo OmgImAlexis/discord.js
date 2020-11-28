@@ -1,7 +1,8 @@
 'use strict';
 
-const BaseClient = require('./BaseClient');
-const Webhook = require('../structures/Webhook');
+import BaseClient from './BaseClient';
+import Webhook from '../structures/Webhook';
+import type Snowflake from '../util/Snowflake';
 
 /**
  * The webhook client.
@@ -9,6 +10,8 @@ const Webhook = require('../structures/Webhook');
  * @extends {BaseClient}
  */
 class WebhookClient extends BaseClient {
+  id: Snowflake;
+
   /**
    * @param {Snowflake} id ID of the webhook
    * @param {string} token Token of the webhook
@@ -18,7 +21,7 @@ class WebhookClient extends BaseClient {
    * const hook = new Discord.WebhookClient('1234', 'abcdef');
    * hook.send('This will send a message').catch(console.error);
    */
-  constructor(id, token, options) {
+  constructor(id: Snowflake, token: string, options) {
     super(options);
     Object.defineProperty(this, 'client', { value: this });
     this.id = id;

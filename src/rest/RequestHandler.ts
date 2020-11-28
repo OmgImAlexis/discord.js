@@ -1,13 +1,15 @@
 'use strict';
 
-const AsyncQueue = require('./AsyncQueue');
-const DiscordAPIError = require('./DiscordAPIError');
-const HTTPError = require('./HTTPError');
-const {
-  Events: { RATE_LIMIT },
+import AsyncQueue from './AsyncQueue';
+import DiscordAPIError from './DiscordAPIError';
+import HTTPError from './HTTPError';
+import {
+  Events,
   browser,
-} = require('../util/Constants');
-const Util = require('../util/Util');
+} from '../util/Constants';
+import Util from '../util/Util';
+
+const { RATE_LIMIT } = Events;
 
 function parseResponse(res) {
   if (res.headers.get('content-type').startsWith('application/json')) return res.json();

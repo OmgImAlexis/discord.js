@@ -2,30 +2,30 @@
 
 import type { FIXME } from '../types';
 
-const BaseManager = require('./BaseManager');
-const Guild = require('../structures/Guild');
-const GuildChannel = require('../structures/GuildChannel');
-const GuildEmoji = require('../structures/GuildEmoji');
-const GuildMember = require('../structures/GuildMember');
-const Invite = require('../structures/Invite');
-const Role = require('../structures/Role');
-const {
+import BaseManager from './BaseManager';
+import Guild from '../structures/Guild';
+import GuildChannel from '../structures/GuildChannel';
+import GuildEmoji from '../structures/GuildEmoji';
+import GuildMember from '../structures/GuildMember';
+import Invite from '../structures/Invite';
+import Role from '../structures/Role';
+import {
   ChannelTypes,
   Events,
   VerificationLevels,
   DefaultMessageNotifications,
   ExplicitContentFilterLevels,
-} = require('../util/Constants');
-const DataResolver = require('../util/DataResolver');
-const Permissions = require('../util/Permissions');
-const { resolveColor } = require('../util/Util');
+} from '../util/Constants';
+import DataResolver from '../util/DataResolver';
+import Permissions from '../util/Permissions';
+import Util from '../util/Util';
 
 /**
  * Manages API methods for Guilds and stores their cache.
  * @extends {BaseManager}
  */
 class GuildManager extends BaseManager {
-  constructor(client, iterable) {
+  constructor(client, iterable?) {
     super(client, iterable, Guild);
   }
 
@@ -184,7 +184,7 @@ class GuildManager extends BaseManager {
       delete channel.permissionOverwrites;
     }
     for (const role of roles) {
-      if (role.color) role.color = resolveColor(role.color);
+      if (role.color) role.color = Util.resolveColor(role.color);
       if (role.permissions) role.permissions = Permissions.resolve(role.permissions);
     }
     return new Promise((resolve, reject) =>

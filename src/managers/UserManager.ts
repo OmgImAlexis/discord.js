@@ -1,16 +1,16 @@
 'use strict';
 
-const BaseManager = require('./BaseManager');
-const GuildMember = require('../structures/GuildMember');
-const Message = require('../structures/Message');
-const User = require('../structures/User');
+import BaseManager from './BaseManager';
+import GuildMember from '../structures/GuildMember';
+import Message from '../structures/Message';
+import User from '../structures/User';
 
 /**
  * Manages API methods for users and stores their cache.
  * @extends {BaseManager}
  */
 class UserManager extends BaseManager {
-  constructor(client, iterable) {
+  constructor(client, iterable?) {
     super(client, iterable, User);
   }
 

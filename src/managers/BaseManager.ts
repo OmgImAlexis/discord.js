@@ -1,7 +1,7 @@
 'use strict';
 
 import type { FIXME } from '../types';
-const Collection = require('../util/Collection');
+import Collection from '../util/Collection';
 let Structures;
 
 /**
@@ -10,7 +10,7 @@ let Structures;
  */
 class BaseManager {
   cacheType: FIXME;
-  cache: FIXME;
+  cache: Collection<FIXME, FIXME>;
   holds: FIXME;
   client: FIXME;
 

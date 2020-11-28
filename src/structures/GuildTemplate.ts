@@ -2,15 +2,28 @@
 
 import type { FIXME } from '../types';
 
-const Base = require('./Base');
-const { Events } = require('../util/Constants');
-const DataResolver = require('../util/DataResolver');
+import Base from './Base';
+import { Events } from '../util/Constants';
+import DataResolver from '../util/DataResolver';
 
 /**
  * Represents the template for a guild.
  * @extends {Base}
  */
 class GuildTemplate extends Base {
+  code: FIXME;
+  name: FIXME;
+  description: FIXME;
+  usageCount: FIXME;
+  creatorID: FIXME;
+  creator: FIXME;
+  client: FIXME;
+  createdAt: FIXME;
+  updatedAt: FIXME;
+  guildID: FIXME;
+  serializedGuild: FIXME;
+  unSynced: FIXME;
+
   /**
    * @param {Client} client The instantiating client
    * @param {Object} data The raw data for the template

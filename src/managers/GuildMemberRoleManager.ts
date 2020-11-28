@@ -1,10 +1,12 @@
 'use strict';
 
-import type { FIXME } from '../types';
 import { TypeError } from '../errors';
 import Collection from '../util/Collection';
 import type Guild from '../structures/Guild';
 import type GuildMember from '../structures/GuildMember';
+import type Client from '../client/Client';
+import type Snowflake from '../util/Snowflake';
+import type Role from '../structures/Role';
 
 /**
  * Manages API methods for roles of a GuildMember and stores their cache.
@@ -12,9 +14,9 @@ import type GuildMember from '../structures/GuildMember';
 class GuildMemberRoleManager {
   member: GuildMember;
   guild: Guild;
-  client: FIXME;
+  client!: Client;
 
-  constructor(member) {
+  constructor(member: GuildMember) {
     /**
      * The GuildMember this manager belongs to
      * @type {GuildMember}
@@ -44,7 +46,7 @@ class GuildMemberRoleManager {
    * @type {Collection<Snowflake, Role>}
    * @readonly
    */
-  get cache() {
+  get cache(): Collection<Snowflake, Role> {
     return this._roles;
   }
 

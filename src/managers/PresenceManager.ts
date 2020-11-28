@@ -8,7 +8,7 @@ const { Presence } = require('../structures/Presence');
  * @extends {BaseManager}
  */
 class PresenceManager extends BaseManager {
-  constructor(client, iterable) {
+  constructor(client, iterable?) {
     super(client, iterable, Presence);
   }
 

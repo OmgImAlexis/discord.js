@@ -1,18 +1,21 @@
 'use strict';
 
 import type { FIXME } from '../types';
-
-const APIMessage = require('./APIMessage');
-const Channel = require('./Channel');
-const { WebhookTypes } = require('../util/Constants');
-const DataResolver = require('../util/DataResolver');
-const Snowflake = require('../util/Snowflake');
+import APIMessage from './APIMessage';
+import Channel from './Channel';
+import { WebhookTypes } from '../util/Constants';
+import DataResolver from '../util/DataResolver';
+import Snowflake from '../util/Snowflake';
 
 /**
  * Represents a webhook.
  */
 class Webhook {
-  name: FIXME;
+  /**
+   * The name of the webhook
+   * @type {string}
+   */
+  name?: string;
   avatar: FIXME;
   id: FIXME;
   type: FIXME;
@@ -33,10 +36,6 @@ class Webhook {
   }
 
   _patch(data) {
-    /**
-     * The name of the webhook
-     * @type {string}
-     */
     this.name = data.name;
 
     /**

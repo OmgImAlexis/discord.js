@@ -1,7 +1,8 @@
 'use strict';
 
-const Emoji = require('./Emoji');
-const Util = require('../util/Util');
+import Emoji from './Emoji';
+import Util from '../util/Util';
+import type MessageReaction from './MessageReaction';
 
 /**
  * Represents a limited emoji set used for both custom and unicode emojis. Custom emojis
@@ -10,7 +11,9 @@ const Util = require('../util/Util');
  * @extends {Emoji}
  */
 class ReactionEmoji extends Emoji {
-  constructor(reaction, emoji) {
+  reaction: MessageReaction;
+
+  constructor(reaction: MessageReaction, emoji) {
     super(reaction.message.client, emoji);
     /**
      * The message reaction this emoji refers to

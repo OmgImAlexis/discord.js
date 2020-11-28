@@ -491,7 +491,7 @@ class Util {
    * @returns {string} Basename of the path
    * @private
    */
-  static basename(path, ext) {
+  static basename(path, ext?) {
     let res = parse(path);
     return ext && res.ext.startsWith(ext) ? res.name : res.base.split('?')[0];
   }

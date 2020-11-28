@@ -4,22 +4,20 @@ import type { FIXME } from '../types';
 import Base from './Base';
 import Guild from './Guild';
 import GuildMember from './GuildMember';
-
-const APIMessage = require('./APIMessage');
-
-const ClientApplication = require('./ClientApplication');
-const MessageAttachment = require('./MessageAttachment');
-const Embed = require('./MessageEmbed');
-const Mentions = require('./MessageMentions');
-const ReactionCollector = require('./ReactionCollector');
-const { Error: DiscordError, TypeError: DiscordTypeError } = require('../errors');
-const ReactionManager = require('../managers/ReactionManager');
-const Collection = require('../util/Collection');
-const { MessageTypes } = require('../util/Constants');
-const MessageFlags = require('../util/MessageFlags');
-const Permissions = require('../util/Permissions');
-const SnowflakeUtil = require('../util/Snowflake');
-const Util = require('../util/Util');
+import APIMessage from './APIMessage';
+import ClientApplication from './ClientApplication';
+import MessageAttachment from './MessageAttachment';
+import Embed from './MessageEmbed';
+import Mentions from './MessageMentions';
+import ReactionCollector from './ReactionCollector';
+import { Error as DiscordError, TypeError as DiscordTypeError } from '../errors';
+import ReactionManager from '../managers/ReactionManager';
+import Collection from '../util/Collection';
+import { MessageTypes } from '../util/Constants';
+import MessageFlags from '../util/MessageFlags';
+import Permissions from '../util/Permissions';
+import SnowflakeUtil from '../util/Snowflake';
+import Util from '../util/Util';
 
 /**
  * Represents a message on Discord.

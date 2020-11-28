@@ -2,13 +2,13 @@
 
 import type { FIXME } from '../types';
 
-const EventEmitter = require('events');
-const fs = require('fs');
-const path = require('path');
-const Shard = require('./Shard');
-const { Error, TypeError, RangeError } = require('../errors');
-const Collection = require('../util/Collection');
-const Util = require('../util/Util');
+import { EventEmitter } from 'events';
+import * as fs from 'fs';
+import * as path from 'path';
+import Shard from './Shard';
+import { Error, TypeError, RangeError } from '../errors';
+import Collection from '../util/Collection';
+import Util from '../util/Util';
 
 /**
  * This is a utility class that makes multi-process sharding of a bot an easy and painless experience.
@@ -20,6 +20,16 @@ const Util = require('../util/Util');
  * @extends {EventEmitter}
  */
 class ShardingManager extends EventEmitter {
+  file: FIXME;
+  shardList: FIXME;
+  totalShards: FIXME;
+  mode: FIXME;
+  respawn: FIXME;
+  shardArgs: FIXME;
+  execArgv: FIXME;
+  token: FIXME;
+  shards: FIXME;
+
   /**
    * The mode to spawn shards with for a {@link ShardingManager}: either "process" to use child processes, or
    * "worker" to use [Worker threads](https://nodejs.org/api/worker_threads.html).

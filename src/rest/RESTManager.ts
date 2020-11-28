@@ -1,13 +1,12 @@
 'use strict';
 
 import type { FIXME } from '../types';
-
-const APIRequest = require('./APIRequest');
-const routeBuilder = require('./APIRouter');
-const RequestHandler = require('./RequestHandler');
-const { Error } = require('../errors');
-const Collection = require('../util/Collection');
-const { Endpoints } = require('../util/Constants');
+import APIRequest from './APIRequest';
+import routeBuilder from './APIRouter';
+import RequestHandler from './RequestHandler';
+import { Error } from '../errors';
+import Collection from '../util/Collection';
+import { Endpoints } from '../util/Constants';
 
 class RESTManager {
   client: FIXME;

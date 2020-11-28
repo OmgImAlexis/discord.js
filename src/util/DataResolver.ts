@@ -3,13 +3,11 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import type { FIXME } from '../types';
-
 import * as stream from 'stream';
 import fetch from 'node-fetch';
 import { browser } from '../util/Constants';
 import Util from '../util/Util';
-
-const { Error: DiscordError, TypeError } = require('../errors');
+import { Error as DiscordError, TypeError } from '../errors';
 
 /**
  * The DataResolver identifies different objects and tries to resolve a specific piece of information from them.

@@ -1,13 +1,19 @@
 'use strict';
 
-const Team = require('./Team');
-const Application = require('./interfaces/Application');
+import Team from './Team';
+import Application from './interfaces/Application';
+import type { FIXME } from '../types';
 
 /**
  * Represents a Client OAuth2 Application.
  * @extends {Application}
  */
 class ClientApplication extends Application {
+  rpcOrigins: FIXME;
+  botRequireCodeGrant: FIXME;
+  botPublic: FIXME;
+  owner: FIXME;
+
   _patch(data) {
     super._patch(data);
 

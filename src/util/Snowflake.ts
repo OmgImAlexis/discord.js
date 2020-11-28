@@ -6,6 +6,15 @@ import Util from '../util/Util';
 const EPOCH = 1420070400000;
 let INCREMENT = 0;
 
+interface DeconstructedSnowflake {
+  timestamp: number;
+  readonly date: Date;
+  workerID: number;
+  processID: number;
+  increment: number;
+  binary: string;
+}
+
 /**
  * A container for useful snowflake-related methods.
  */
@@ -62,7 +71,7 @@ class Snowflake {
    * @param {Snowflake} snowflake Snowflake to deconstruct
    * @returns {DeconstructedSnowflake} Deconstructed snowflake
    */
-  static deconstruct(snowflake) {
+  static deconstruct(snowflake): DeconstructedSnowflake {
     const BINARY = Util.idToBinary(snowflake).toString().padStart(64, '0');
     const res = {
       timestamp: parseInt(BINARY.substring(0, 42), 2) + EPOCH,
@@ -77,7 +86,9 @@ class Snowflake {
       },
       enumerable: true,
     });
-    return res;
+
+    // "date" is merged in above
+    return res as DeconstructedSnowflake;
   }
 
   /**

@@ -1,11 +1,11 @@
 'use strict';
 
-import type { ChildProcess } from 'child_process';
+import * as path from 'path';
+import { EventEmitter } from 'events';
+import { Error as DiscordError } from '../errors';
+import Util from '../util/Util';
+import type { FIXME } from '../types';
 
-const EventEmitter = require('events');
-const path = require('path');
-const { Error } = require('../errors');
-const Util = require('../util/Util');
 let childProcess;
 let Worker;
 
@@ -16,6 +16,18 @@ let Worker;
  * @extends EventEmitter
  */
 class Shard extends EventEmitter {
+  manager: FIXME;
+  id: FIXME;
+  args: FIXME;
+  execArgv: FIXME;
+  env: FIXME;
+  ready: FIXME;
+  process: FIXME;
+  worker: FIXME;
+  _evals: FIXME;
+  _fetches: FIXME;
+  _exitListener: FIXME;
+
   /**
    * @param {ShardingManager} manager Manager that is creating this shard
    * @param {number} id ID of this shard
@@ -109,8 +121,8 @@ class Shard extends EventEmitter {
    * @returns {Promise<ChildProcess>}
    */
   async spawn(spawnTimeout = 30000) {
-    if (this.process) throw new Error('SHARDING_PROCESS_EXISTS', this.id);
-    if (this.worker) throw new Error('SHARDING_WORKER_EXISTS', this.id);
+    if (this.process) throw new DiscordError('SHARDING_PROCESS_EXISTS', this.id);
+    if (this.worker) throw new DiscordError('SHARDING_WORKER_EXISTS', this.id);
 
     if (this.manager.mode === 'process') {
       this.process = childProcess
@@ -152,17 +164,17 @@ class Shard extends EventEmitter {
 
       const onDisconnect = () => {
         cleanup();
-        reject(new Error('SHARDING_READY_DISCONNECTED', this.id));
+        reject(new DiscordError('SHARDING_READY_DISCONNECTED', this.id));
       };
 
       const onDeath = () => {
         cleanup();
-        reject(new Error('SHARDING_READY_DIED', this.id));
+        reject(new DiscordError('SHARDING_READY_DIED', this.id));
       };
 
       const onTimeout = () => {
         cleanup();
-        reject(new Error('SHARDING_READY_TIMEOUT', this.id));
+        reject(new DiscordError('SHARDING_READY_TIMEOUT', this.id));
       };
 
       const spawnTimeoutTimer = setTimeout(onTimeout, spawnTimeout);
@@ -231,7 +243,7 @@ class Shard extends EventEmitter {
    */
   fetchClientValue(prop) {
     // Shard is dead (maybe respawning), don't cache anything and error immediately
-    if (!this.process && !this.worker) return Promise.reject(new Error('SHARDING_NO_CHILD_EXISTS', this.id));
+    if (!this.process && !this.worker) return Promise.reject(new DiscordError('SHARDING_NO_CHILD_EXISTS', this.id));
 
     // Cached promise from previous call
     if (this._fetches.has(prop)) return this._fetches.get(prop);
@@ -265,7 +277,7 @@ class Shard extends EventEmitter {
    */
   eval(script) {
     // Shard is dead (maybe respawning), don't cache anything and error immediately
-    if (!this.process && !this.worker) return Promise.reject(new Error('SHARDING_NO_CHILD_EXISTS', this.id));
+    if (!this.process && !this.worker) return Promise.reject(new DiscordError('SHARDING_NO_CHILD_EXISTS', this.id));
 
     // Cached promise from previous call
     if (this._evals.has(script)) return this._evals.get(script);

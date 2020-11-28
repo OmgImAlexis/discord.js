@@ -1,10 +1,9 @@
 'use strict';
 
 import type { FIXME } from '../types';
-
-const { Error: DiscordError } = require('../errors');
-const { Events } = require('../util/Constants');
-const Util = require('../util/Util');
+import { Error as DiscordError } from '../errors';
+import { Events } from '../util/Constants';
+import Util from '../util/Util';
 
 /**
  * Helper class for sharded clients spawned as a child process/worker, such as from a {@link ShardingManager}.

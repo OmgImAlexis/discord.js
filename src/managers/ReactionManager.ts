@@ -1,14 +1,17 @@
 'use strict';
 
-const BaseManager = require('./BaseManager');
-const MessageReaction = require('../structures/MessageReaction');
+import BaseManager from './BaseManager';
+import MessageReaction from '../structures/MessageReaction';
+import type Message from '../structures/Message';
 
 /**
  * Manages API methods for reactions and holds their cache.
  * @extends {BaseManager}
  */
 class ReactionManager extends BaseManager {
-  constructor(message, iterable) {
+  message: Message;
+
+  constructor(message, iterable?) {
     super(message.client, iterable, MessageReaction);
 
     /**

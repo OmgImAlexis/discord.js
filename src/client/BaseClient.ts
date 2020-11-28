@@ -1,18 +1,24 @@
 'use strict';
 
-import type { FIXME } from '../types';
-
 require('setimmediate');
-const EventEmitter = require('events');
-const RESTManager = require('../rest/RESTManager');
-const { DefaultOptions } = require('../util/Constants');
-const Util = require('../util/Util');
+
+import type { FIXME } from '../types';
+import { EventEmitter } from 'events';
+import RESTManager from '../rest/RESTManager';
+import { DefaultOptions } from '../util/Constants';
+import Util from '../util/Util';
 
 /**
  * The base class for all clients.
  * @extends {EventEmitter}
  */
 class BaseClient extends EventEmitter {
+  _timeouts: Set<NodeJS.Timeout>;
+  _intervals: Set<NodeJS.Timeout>;
+  _immediates: Set<NodeJS.Immediate>;
+  options: FIXME;
+  rest: RESTManager;
+
   constructor(options: FIXME = {}) {
     super();
 

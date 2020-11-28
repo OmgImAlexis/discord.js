@@ -19,8 +19,8 @@ class GenericAction {
     this.client = client;
   }
 
-  handle(data) {
-    return data;
+  handle(...args: any[]) {
+    return args[0];
   }
 
   getPayload(data, manager, id, partialType, cache?) {
@@ -48,7 +48,7 @@ class GenericAction {
     );
   }
 
-  getMessage(data, channel, cache) {
+  getMessage(data, channel, cache?) {
     const id = data.message_id || data.id;
     return (
       data.message ||

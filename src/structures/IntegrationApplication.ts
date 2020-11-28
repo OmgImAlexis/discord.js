@@ -1,12 +1,15 @@
 'use strict';
 
-const Application = require('./interfaces/Application');
+import Application from './interfaces/Application';
+import User from './User';
 
 /**
  * Represents an Integration's OAuth2 Application.
  * @extends {Application}
  */
 class IntegrationApplication extends Application {
+  bot?: User | null;
+
   _patch(data) {
     super._patch(data);
 

@@ -14,7 +14,7 @@ const SnowflakeUtil = require('../util/Snowflake');
  * @extends {BaseManager}
  */
 class GuildMemberManager extends BaseManager {
-  constructor(guild, iterable) {
+  constructor(guild, iterable?) {
     super(guild.client, iterable, GuildMember);
     /**
      * The guild this manager belongs to

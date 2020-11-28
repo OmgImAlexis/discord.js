@@ -2,8 +2,7 @@
 
 import { URLSearchParams } from 'url';
 import type { FIXME } from './types';
-
-const { browser } = require('./util/Constants');
+import { browser } from './util/Constants';
 
 let erlpack;
 
@@ -23,7 +22,7 @@ export const encoding = erlpack ? 'etf' : 'json';
 
 export const pack = erlpack ? erlpack.pack : JSON.stringify;
 
-export const unpack = (data, type) => {
+export const unpack = (data, type?) => {
   if (encoding === 'json' || type === 'json') {
     if (typeof data !== 'string') {
       data = ab.decode(data);
